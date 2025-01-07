@@ -14,7 +14,7 @@ runs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Executing init to verify plugins
+    - name: Executing script
       shell: bash
       run: |-
         if [[ ! -f "main.tf" || ! -f "variables.tf" || ! -f "outputs.tf" ]]; then
