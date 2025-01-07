@@ -1,0 +1,36 @@
+---
+name: "Terraform linter"
+description: "A terraform based linting github action to lint complete terraform code"
+
+inputs:
+  terraform_version:
+    description: "Terraform version to install"
+    required: true
+    default: '1.10.2'
+  directory:
+    description: "Directory in which terraform code is available"
+    required: false
+    default: "./"
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ inputs.terraform_version }}
+
+    - name: Executing init to verify plugins
+      shell: bash
+      run: terraform init
+
+    - name: Executing fmt
+      shell: bash
+      run: terraform fmt -check
+
+    - name: Executing validate
+      shell: bash
+      run: terraform validate
