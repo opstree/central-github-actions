@@ -17,14 +17,14 @@ runs:
       uses: actions/checkout@v4
 
     - name: Executing tfsec
-      uses: tfsec/tfsec-sarif-action@main
+      uses: aquasecurity/tfsec-sarif-action@v0.1.0
       with:
         sarif_file: tfsec.sarif
         working_directory: ${{ inputs.directory }}
         github_token: ${{ inputs.github_token }}
 
     - name: Executing tfsec PR commenter
-      uses: tfsec/tfsec-pr-commenter-action@main
+      uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
       with:
         working_directory: ${{ inputs.directory }}
         github_token: ${{ inputs.github_token }}
