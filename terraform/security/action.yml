@@ -7,6 +7,8 @@ inputs:
     description: "Directory in which terraform code is available"
     required: false
     default: "./"
+  github_token:
+    description: "GitHub token to create security issues and PR comments"
 
 runs:
   using: composite
@@ -19,10 +21,10 @@ runs:
       with:
         sarif_file: tfsec.sarif
         working_directory: ${{ inputs.directory }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.github_token }}
 
     - name: Executing tfsec PR commenter
       uses: tfsec/tfsec-pr-commenter-action@main
       with:
         working_directory: ${{ inputs.directory }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.github_token }}
