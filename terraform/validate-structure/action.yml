@@ -1,0 +1,27 @@
+---
+name: "Terraform structure validator"
+description: "A terraform based validator github action to validate structure"
+
+inputs:
+  directory:
+    description: "Directory in which terraform code is available"
+    required: false
+    default: "./"
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Executing init to verify plugins
+      shell: bash
+      run: |-
+        if [[ ! -f "main.tf" || ! -f "variables.tf" || ! -f "outputs.tf" ]]; then
+          echo "Error: One or more tf files should exist: main.tf\variables.tf\noutputs.tf"
+          exit 1
+        fi
+        
+        echo "Terraform structure validated successfully"
+        exit 0
+      working-directory: ${{ inputs.directory }}

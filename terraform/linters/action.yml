@@ -26,11 +26,14 @@ runs:
     - name: Executing init to verify plugins
       shell: bash
       run: terraform init
+      working-directory: ${{ inputs.directory }}
 
     - name: Executing fmt
       shell: bash
       run: terraform fmt -check
+      working-directory: ${{ inputs.directory }}
 
     - name: Executing validate
       shell: bash
       run: terraform validate
+      working-directory: ${{ inputs.directory }}
