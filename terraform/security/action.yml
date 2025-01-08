@@ -23,6 +23,12 @@ runs:
         working_directory: ${{ inputs.directory }}
         github_token: ${{ inputs.github_token }}
 
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: tfsec.sarif
+      working-directory: ${{ inputs.directory }}
+
     - name: Executing tfsec PR commenter
       uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
       with:
